@@ -7,10 +7,11 @@ const { Circle, Square, Triangle } = require('./lib/shapes.js')
 const SVG = require('./lib/svg.js')
 
 
+
 // Creates an array of questions for user input - each question has an identifier eg: title
 class CLI {
   run() {
-      return inquirer.prompt([
+    return inquirer.prompt([
       {
         type: 'input',
         name: 'letters',
@@ -37,15 +38,15 @@ class CLI {
         message: 'What color would you like the shape to be? You can enter color names (eg: red or hexidecimal numbers eg: FF0000)'
       } //then we push the data to the next part note that I deconstructed the object so i can just use the variable names
     ]).then(({ letters, textColor, shapeStyle, shapeColor }) => {
-      
+
       let shape;
-      
+
       switch (shapeStyle) {
-        case "circle":
+        case "Circle":
           shape = new Circle();
           break;
 
-        case "triangle":
+        case "Triangle":
           shape = new Triangle();
           break;
 
@@ -61,29 +62,39 @@ class CLI {
       svg.setText(letters, textColor);
       svg.setShape(shape);
       const finalSVG = svg.render();
-      console.log(svg);
       console.log(finalSVG);
-      // return and write to the file svg.render()
-    })
 
+      //new file name
+      const fileName = "./examples/logo.svg";
+
+      // return and write to the file svg.render()
+      return writeToFile(fileName, finalSVG);
+
+    })
   }
 }
 
-
-
-
-
 // This is a function to write the logo.svg file
-function writeToFile(NewData) {
 
-};
+  const writeToFile = (fileName, data) => {
+    return fs.writeFile(fileName, data)
+      .then(() => {
+        console.log('The file has been saved!');
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
 
 // Initialize the app
 function init() {
-const newCLI = new CLI();
-newCLI.run();
-  
+  const newCLI = new CLI();
+  newCLI.run();
+
 }
 
+
+// run the program with this init function call
 init();
 
