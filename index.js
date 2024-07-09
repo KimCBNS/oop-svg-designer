@@ -10,7 +10,7 @@ const SVG = require('./lib/svg.js')
 // Creates an array of questions for user input - each question has an identifier eg: title
 class CLI {
   run() {
-    return inquirer.prompt([
+      return inquirer.prompt([
       {
         type: 'input',
         name: 'letters',
@@ -35,11 +35,12 @@ class CLI {
         type: 'input',
         name: 'shapeColor',
         message: 'What color would you like the shape to be? You can enter color names (eg: red or hexidecimal numbers eg: FF0000)'
-      }
-    ]).then(({ letters, textColor, shapeType, shapeColor }) => {
+      } //then we push the data to the next part note that I deconstructed the object so i can just use the variable names
+    ]).then(({ letters, textColor, shapeStyle, shapeColor }) => {
+      
       let shape;
-
-      switch (shapeType) {
+      
+      switch (shapeStyle) {
         case "circle":
           shape = new Circle();
           break;
@@ -53,13 +54,22 @@ class CLI {
           break;
       }
       shape.setColor(shapeColor);
-      const svg = new SVG() //pass through variables based on what we have as placeholders
 
+      // using the shape and the text and text color we can build the svg element
+      //pass through variables based on what we have as placeholders
+      const svg = new SVG();
+      svg.setText(letters, textColor);
+      svg.setShape(shape);
+      const finalSVG = svg.render();
+      console.log(svg);
+      console.log(finalSVG);
       // return and write to the file svg.render()
     })
 
   }
 }
+
+
 
 
 
@@ -70,7 +80,8 @@ function writeToFile(NewData) {
 
 // Initialize the app
 function init() {
-
+const newCLI = new CLI();
+newCLI.run();
   
 }
 

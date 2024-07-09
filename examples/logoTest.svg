@@ -1,4 +1,3 @@
 <svg height="200" width="300" xmlns="http://www.w3.org/2000/svg">
-  <polygon points="150,10 290,190 10,190" fill="lime" />
-  <text x="40" y="35" class="heavy">cat</text>
+<rect width="200" height="200" fill="red"/> <text x="40" y="35" text-anchor="middle" fill="white">asd</text>
 </svg>
