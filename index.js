@@ -79,7 +79,7 @@ class CLI {
   const writeToFile = (fileName, data) => {
     return fs.writeFile(fileName, data)
       .then(() => {
-        console.log('The file has been saved!');
+        console.log('Generated logo.svg');
       })
       .catch((err) => {
         console.error(err);
